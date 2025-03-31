@@ -1,0 +1,8 @@
+lib: [
+  "_build/install/default/lib/Projet_CAM/META"
+  "_build/install/default/lib/Projet_CAM/dune-package"
+  "_build/install/default/lib/Projet_CAM/opam"
+]
+bin: [
+  "_build/install/default/bin/Projet_CAM.exe"
+]

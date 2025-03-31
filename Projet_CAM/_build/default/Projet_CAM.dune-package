@@ -1,0 +1,6 @@
+(lang dune 3.16)
+(name Projet_CAM)
+(sections (lib .) (bin ../../bin))
+(files
+ (lib (META dune-package opam))
+ (bin (Projet_CAM.exe TransformationMLCAM.exe)))

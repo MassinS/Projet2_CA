@@ -1,0 +1,15 @@
+(executable
+ (public_name TransformationMLCAM)
+ (name transformation)
+ (modules transformation ast lexer parser)
+ (libraries Projet_CAM))
+
+(rule
+  (targets lexer.ml)
+  (deps lexer.mll)
+  (action (run ocamllex %{deps})))
+
+(rule
+  (targets parser.ml parser.mli)
+  (deps parser.mly)
+  (action (run ocamlyacc %{deps})))

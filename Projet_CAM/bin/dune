@@ -1,0 +1,4 @@
+(executable
+ (public_name Projet_CAM)
+ (name main)
+ (libraries Projet_CAM))
