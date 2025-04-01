@@ -45,23 +45,7 @@ let rec extend_env (p : pat) (rho : env) : env =
         rho2
     | NullPat -> rho  (* Pas de nouvelle liaison *)
 
-
-
-    let env_to_value (env : env) : value =
-      (* Convertir l'environnement en une liste de paires (nom, path) *)
-      let rec build_pairs env =
-        match env with
-        | [] -> NullValue
-        | (x, path) :: rest ->
-            Pair (String x, Pair (path_to_value path, build_pairs rest))
-      and path_to_value path =
-        match path with
-        | Top -> String "top"
-        | Left p -> Pair (String "left", path_to_value p)
-        | Right p -> Pair (String "right", path_to_value p)
-      in
-      build_pairs env
-      
+    
 
 let rec compile (e : expr) (rho : env) : com list =
     match e with
@@ -98,8 +82,8 @@ let rec compile (e : expr) (rho : env) : com list =
         [Cur c]
     | Apply (e1, e2) ->
           [Push] @ compile e1 rho @ [Swap] @ compile e2 rho @ [Cons; App]
+    | _ -> failwith "Not implemented yet"
     
-
 (* Règle (1) : Compilation du programme complet *)
 (* Définition du type program est déjà présente dans AST CAM (program = com list) *)
     let init_pat : env = []

@@ -1,6 +1,14 @@
 {
   open Parser
+  
+  (* Déclaration des exceptions *)
   exception Eof
+  exception Parse_Exception of string * (int * int)  (* Ajoutez cette ligne *)
+
+  (* Fonction pour obtenir la position *)
+  let get_pos lexbuf =
+    let pos = Lexing.lexeme_start_p lexbuf in
+    (pos.pos_lnum, pos.pos_cnum - pos.pos_bol)
 }
 
 let ident = ['a'-'z''_'] ['a'-'z''A'-'Z''0'-'9''_']*
@@ -27,8 +35,7 @@ rule token = parse
 | [' ' '\t']         { token lexbuf }    (* skip blanks *)
 | "(*"               { comment lexbuf }  (* Comment until closing *)
 | eof | "eof"        { EOF }
-| _  as lxm          { raise (Parse_Exception (Printf.sprintf "Unexpected character: %c"  lxm,  Parseutils.pos())) }
-
+| _ as lxm           { raise (Parse_Exception (Printf.sprintf "Unexpected character: %c" lxm, get_pos lexbuf)) }
 
 and comment = parse 
 | "*)"    { token lexbuf }

@@ -1,0 +1,15 @@
+description = ""
+requires = ""
+archive(byte) = "Projet_CAM.cma"
+archive(native) = "Projet_CAM.cmxa"
+plugin(byte) = "Projet_CAM.cma"
+plugin(native) = "Projet_CAM.cmxs"
+package "transformation-ml-cam" (
+  directory = "transformation-ml-cam"
+  description = ""
+  requires = "Projet_CAM"
+  archive(byte) = "transformation_ml_cam.cma"
+  archive(native) = "transformation_ml_cam.cmxa"
+  plugin(byte) = "transformation_ml_cam.cma"
+  plugin(native) = "transformation_ml_cam.cmxs"
+)

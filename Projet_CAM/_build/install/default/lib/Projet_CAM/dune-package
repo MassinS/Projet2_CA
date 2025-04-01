@@ -1,6 +1,107 @@
 (lang dune 3.16)
 (name Projet_CAM)
-(sections (lib .) (bin ../../bin))
+(sections (lib .) (libexec .) (bin ../../bin))
 (files
- (lib (META dune-package opam))
- (bin (Projet_CAM.exe TransformationMLCAM.exe)))
+ (lib
+  (META
+   Projet_CAM.a
+   Projet_CAM.cma
+   Projet_CAM.cmxa
+   dune-package
+   opam
+   projet_CAM.cmi
+   projet_CAM.cmt
+   projet_CAM.cmx
+   projet_CAM.ml
+   transformation-ml-cam/ast.ml
+   transformation-ml-cam/lexer.ml
+   transformation-ml-cam/parser.ml
+   transformation-ml-cam/parser.mli
+   transformation-ml-cam/transformation.ml
+   transformation-ml-cam/transformation_ml_cam.a
+   transformation-ml-cam/transformation_ml_cam.cma
+   transformation-ml-cam/transformation_ml_cam.cmi
+   transformation-ml-cam/transformation_ml_cam.cmt
+   transformation-ml-cam/transformation_ml_cam.cmx
+   transformation-ml-cam/transformation_ml_cam.cmxa
+   transformation-ml-cam/transformation_ml_cam.ml
+   transformation-ml-cam/transformation_ml_cam__Ast.cmi
+   transformation-ml-cam/transformation_ml_cam__Ast.cmt
+   transformation-ml-cam/transformation_ml_cam__Ast.cmx
+   transformation-ml-cam/transformation_ml_cam__Lexer.cmi
+   transformation-ml-cam/transformation_ml_cam__Lexer.cmt
+   transformation-ml-cam/transformation_ml_cam__Lexer.cmx
+   transformation-ml-cam/transformation_ml_cam__Parser.cmi
+   transformation-ml-cam/transformation_ml_cam__Parser.cmt
+   transformation-ml-cam/transformation_ml_cam__Parser.cmti
+   transformation-ml-cam/transformation_ml_cam__Parser.cmx
+   transformation-ml-cam/transformation_ml_cam__Transformation.cmi
+   transformation-ml-cam/transformation_ml_cam__Transformation.cmt
+   transformation-ml-cam/transformation_ml_cam__Transformation.cmx))
+ (libexec (Projet_CAM.cmxs transformation-ml-cam/transformation_ml_cam.cmxs))
+ (bin (Projet_CAM.exe)))
+(library
+ (name Projet_CAM)
+ (kind normal)
+ (archives (byte Projet_CAM.cma) (native Projet_CAM.cmxa))
+ (plugins (byte Projet_CAM.cma) (native Projet_CAM.cmxs))
+ (native_archives Projet_CAM.a)
+ (main_module_name Projet_CAM)
+ (modes byte native)
+ (modules
+  (wrapped
+   (group
+    (alias
+     (obj_name projet_CAM)
+     (visibility public)
+     (kind alias)
+     (source (path Projet_CAM) (impl (path projet_CAM.ml-gen))))
+    (name Projet_CAM))
+   (wrapped true))))
+(library
+ (name Projet_CAM.transformation-ml-cam)
+ (kind normal)
+ (archives
+  (byte transformation-ml-cam/transformation_ml_cam.cma)
+  (native transformation-ml-cam/transformation_ml_cam.cmxa))
+ (plugins
+  (byte transformation-ml-cam/transformation_ml_cam.cma)
+  (native transformation-ml-cam/transformation_ml_cam.cmxs))
+ (native_archives transformation-ml-cam/transformation_ml_cam.a)
+ (requires Projet_CAM)
+ (main_module_name Transformation_ml_cam)
+ (modes byte native)
+ (modules
+  (wrapped
+   (group
+    (alias
+     (obj_name transformation_ml_cam)
+     (visibility public)
+     (kind alias)
+     (source
+      (path Transformation_ml_cam)
+      (impl (path transformation-ml-cam/transformation_ml_cam.ml-gen))))
+    (name Transformation_ml_cam)
+    (modules
+     (module
+      (obj_name transformation_ml_cam__Ast)
+      (visibility public)
+      (source (path Ast) (impl (path transformation-ml-cam/ast.ml))))
+     (module
+      (obj_name transformation_ml_cam__Lexer)
+      (visibility public)
+      (source (path Lexer) (impl (path transformation-ml-cam/lexer.ml))))
+     (module
+      (obj_name transformation_ml_cam__Parser)
+      (visibility public)
+      (source
+       (path Parser)
+       (intf (path transformation-ml-cam/parser.mli))
+       (impl (path transformation-ml-cam/parser.ml))))
+     (module
+      (obj_name transformation_ml_cam__Transformation)
+      (visibility public)
+      (source
+       (path Transformation)
+       (impl (path transformation-ml-cam/transformation.ml))))))
+   (wrapped true))))

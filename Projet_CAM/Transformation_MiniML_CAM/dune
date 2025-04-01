@@ -1,7 +1,7 @@
-(executable
- (public_name TransformationMLCAM)
- (name transformation)
- (modules ast lexer analyseur transformation )
+(library
+ (name transformation_ml_cam)
+ (public_name Projet_CAM.transformation-ml-cam)
+ (modules ast parser lexer  transformation)
  (libraries Projet_CAM))
 
 (rule
@@ -10,6 +10,6 @@
   (action (run ocamllex %{deps})))
 
 (rule
-  (targets analyseur.ml analyseur.mli)
-  (deps analyseur.mly)
+  (targets parser.ml parser.mli)
+  (deps parser.mly)
   (action (run ocamlyacc %{deps})))

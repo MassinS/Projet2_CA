@@ -1,2 +1,4 @@
 (library
- (name Projet_CAM))
+ (name Projet_CAM)
+ (public_name Projet_CAM)
+ )
