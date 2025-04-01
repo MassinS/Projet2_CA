@@ -31,6 +31,7 @@ rule token = parse
 | "else"             { ELSE }
 | "="                { EQ }
 | "->"               { RIGHT_ARROW }
+| ident as lxm       { IDENT(lxm) }
 | ['\n' ]            { (Lexing.new_line lexbuf) ; (token lexbuf) }
 | [' ' '\t']         { token lexbuf }    (* skip blanks *)
 | "(*"               { comment lexbuf }  (* Comment until closing *)

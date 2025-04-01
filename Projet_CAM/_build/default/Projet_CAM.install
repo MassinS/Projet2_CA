@@ -1,8 +1,44 @@
 lib: [
   "_build/install/default/lib/Projet_CAM/META"
+  "_build/install/default/lib/Projet_CAM/Projet_CAM.a"
+  "_build/install/default/lib/Projet_CAM/Projet_CAM.cma"
+  "_build/install/default/lib/Projet_CAM/Projet_CAM.cmxa"
   "_build/install/default/lib/Projet_CAM/dune-package"
   "_build/install/default/lib/Projet_CAM/opam"
+  "_build/install/default/lib/Projet_CAM/projet_CAM.cmi"
+  "_build/install/default/lib/Projet_CAM/projet_CAM.cmt"
+  "_build/install/default/lib/Projet_CAM/projet_CAM.cmx"
+  "_build/install/default/lib/Projet_CAM/projet_CAM.ml"
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/ast.ml" {"transformation-ml-cam/ast.ml"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/lexer.ml" {"transformation-ml-cam/lexer.ml"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/parser.ml" {"transformation-ml-cam/parser.ml"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/parser.mli" {"transformation-ml-cam/parser.mli"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation.ml" {"transformation-ml-cam/transformation.ml"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.a" {"transformation-ml-cam/transformation_ml_cam.a"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.cma" {"transformation-ml-cam/transformation_ml_cam.cma"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.cmi" {"transformation-ml-cam/transformation_ml_cam.cmi"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.cmt" {"transformation-ml-cam/transformation_ml_cam.cmt"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.cmx" {"transformation-ml-cam/transformation_ml_cam.cmx"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.cmxa" {"transformation-ml-cam/transformation_ml_cam.cmxa"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.ml" {"transformation-ml-cam/transformation_ml_cam.ml"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Ast.cmi" {"transformation-ml-cam/transformation_ml_cam__Ast.cmi"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Ast.cmt" {"transformation-ml-cam/transformation_ml_cam__Ast.cmt"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Ast.cmx" {"transformation-ml-cam/transformation_ml_cam__Ast.cmx"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Lexer.cmi" {"transformation-ml-cam/transformation_ml_cam__Lexer.cmi"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Lexer.cmt" {"transformation-ml-cam/transformation_ml_cam__Lexer.cmt"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Lexer.cmx" {"transformation-ml-cam/transformation_ml_cam__Lexer.cmx"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Parser.cmi" {"transformation-ml-cam/transformation_ml_cam__Parser.cmi"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Parser.cmt" {"transformation-ml-cam/transformation_ml_cam__Parser.cmt"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Parser.cmti" {"transformation-ml-cam/transformation_ml_cam__Parser.cmti"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Parser.cmx" {"transformation-ml-cam/transformation_ml_cam__Parser.cmx"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Transformation.cmi" {"transformation-ml-cam/transformation_ml_cam__Transformation.cmi"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Transformation.cmt" {"transformation-ml-cam/transformation_ml_cam__Transformation.cmt"}
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Transformation.cmx" {"transformation-ml-cam/transformation_ml_cam__Transformation.cmx"}
+]
+libexec: [
+  "_build/install/default/lib/Projet_CAM/Projet_CAM.cmxs"
+  "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.cmxs" {"transformation-ml-cam/transformation_ml_cam.cmxs"}
 ]
 bin: [
-  "_build/install/default/bin/Projet_CAM.exe"
+  "_build/install/default/bin/mini-ml-compiler.exe"
 ]

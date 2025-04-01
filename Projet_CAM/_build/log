@@ -1,4 +1,4 @@
-# C:\Users\DELL\AppData\Local\opam\default\bin\dune.exe build
+# C:\Users\DELL\AppData\Local\opam\default\bin\dune.exe exec mini-ml-compiler
 # OCAMLPARAM: unset
 # Shared cache: disabled
 # Shared cache location:
@@ -14,15 +14,4 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\DELL\AppData\Local\Temp\dune_ef086c_output
-$ (cd _build/default/Transformation_MiniML_CAM && C:\Users\DELL\AppData\Local\opam\default\bin\ocamllex.exe lexer.mll)
-> 46 states, 283 transitions, table size 1408 bytes
-$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I Transformation_MiniML_CAM/.transformation_ml_cam.objs/byte -I lib/.Projet_CAM.objs/byte -no-alias-deps -opaque -open Transformation_ml_cam -o Transformation_MiniML_CAM/.transformation_ml_cam.objs/byte/transformation_ml_cam__Transformation.cmo -c -impl Transformation_MiniML_CAM/transformation.ml)
-> File "Transformation_MiniML_CAM/transformation.ml", line 85, characters 6-7:
-> 85 |     | _ -> failwith "Not implemented yet"
->            ^
-> Error (warning 11 [redundant-case]): this match case is unused.
-[2]
-$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamldep.opt.exe -modules -impl Transformation_MiniML_CAM/lexer.ml) > _build/default/Transformation_MiniML_CAM/.transformation_ml_cam.objs/transformation_ml_cam__Lexer.impl.d
-$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I Transformation_MiniML_CAM/.transformation_ml_cam.objs/byte -I lib/.Projet_CAM.objs/byte -no-alias-deps -opaque -open Transformation_ml_cam -o Transformation_MiniML_CAM/.transformation_ml_cam.objs/byte/transformation_ml_cam__Lexer.cmo -c -impl Transformation_MiniML_CAM/lexer.ml)
-$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I Transformation_MiniML_CAM/.transformation_ml_cam.objs/byte -I Transformation_MiniML_CAM/.transformation_ml_cam.objs/native -I lib/.Projet_CAM.objs/byte -I lib/.Projet_CAM.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Transformation_ml_cam -o Transformation_MiniML_CAM/.transformation_ml_cam.objs/native/transformation_ml_cam__Lexer.cmx -c -impl Transformation_MiniML_CAM/lexer.ml)
+$ C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\DELL\AppData\Local\Temp\dune_51af46_output

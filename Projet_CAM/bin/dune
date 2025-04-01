@@ -1,4 +1,5 @@
 (executable
- (public_name Projet_CAM)
- (name main)
- (libraries Projet_CAM))
+ (name driver)
+ (public_name mini-ml-compiler)
+ (modules driver)
+ (libraries transformation_ml_cam))  ; Doit correspondre au nom dans le dune principal

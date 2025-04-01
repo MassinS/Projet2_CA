@@ -82,12 +82,32 @@ let rec compile (e : expr) (rho : env) : com list =
         [Cur c]
     | Apply (e1, e2) ->
           [Push] @ compile e1 rho @ [Swap] @ compile e2 rho @ [Cons; App]
-    | _ -> failwith "Not implemented yet"
-    
+
+
 (* Règle (1) : Compilation du programme complet *)
 (* Définition du type program est déjà présente dans AST CAM (program = com list) *)
     let init_pat : env = []
     
     let compile_program (e : expr) : program =
       compile e init_pat
-
+      let string_of_com = function
+      | Quote (Int n) -> Printf.sprintf "Quote(Int %d)" n
+      | Quote (Bool true) -> "Quote(Bool true)"
+      | Quote (Bool false) -> "Quote(Bool false)"
+      | Quote NullValue -> "Quote(Null)"
+      | Op Add -> "Op(Add)"
+      | Op Sub -> "Op(Sub)"
+      | Op Mult -> "Op(Mult)"
+      | Car -> "Car"
+      | Cdr -> "Cdr"
+      | Cons -> "Cons"
+      | Push -> "Push"
+      | Swap -> "Swap"
+      | App -> "App"
+      | Rplac -> "Rplac"
+      | Cur _ -> "Cur[...]"  (* Underscore pour ignorer le paramètre non utilisé *)
+      | Branch _ -> "Branch[...]"  (* Underscore pour ignorer les paramètres *)
+    
+    let print_cam_code cam_code =
+      print_endline "\n=== Code CAM ===";
+      List.iter (fun c -> print_endline (string_of_com c)) cam_code

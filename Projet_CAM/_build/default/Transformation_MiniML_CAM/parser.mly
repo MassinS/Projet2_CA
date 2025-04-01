@@ -16,6 +16,7 @@ open Ast
 %nonassoc LET REC
 %nonassoc IN
 %nonassoc  IF                          /* lowest precedence */
+%nonassoc  EQ
 %right     RIGHT_ARROW
 %right     COMMA
 %left TIMES DIV
