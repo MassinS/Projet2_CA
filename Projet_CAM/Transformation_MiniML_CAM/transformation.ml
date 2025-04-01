@@ -1,5 +1,7 @@
 open Ast 
 
+
+
 type env_path =
   | Top                    (* La variable est en haut de la pile *)
   | Left of env_path       (* Pour accéder à la variable, on effectue un Car, puis on suit le chemin *)
@@ -39,6 +41,9 @@ let rec compile (e : expr) (rho : env) : com list =
     | Ident x ->
         let p = find_in_env x rho in
         path_to_coms p
+    |  If(e1, e2, e3) ->
+      [Push] @ compile e1 rho @ [Branch (compile e2 rho, compile e3 rho)]
+      
     | _ -> failwith "More instruction soooon ........"
         
         

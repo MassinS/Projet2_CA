@@ -5,4 +5,5 @@ lib: [
 ]
 bin: [
   "_build/install/default/bin/Projet_CAM.exe"
+  "_build/install/default/bin/TransformationMLCAM.exe"
 ]
