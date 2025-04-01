@@ -40,6 +40,13 @@ and com =
 and value =
   | Int of int
   | Bool of bool
+  | String of string
+  | Pair of value * value
   | NullValue
+  | Env of env_value
+and  env_value =
+  | EnvNull
+  | EnvBinding of string * value * env_value
+  | EnvRecursive  (* Marqueur pour les références récursives *)
 
 and operator = Add | Sub | Mult

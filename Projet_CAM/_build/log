@@ -1,4 +1,4 @@
-# C:\Users\DELL\AppData\Local\opam\default\bin\dune.exe exec TransformationMLCAM
+# C:\Users\DELL\AppData\Local\opam\default\bin\dune.exe build
 # OCAMLPARAM: unset
 # Shared cache: disabled
 # Shared cache location:
@@ -14,7 +14,25 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\DELL\AppData\Local\Temp\dune_a915bc_output
+$ C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\DELL\AppData\Local\Temp\dune_1e778d_output
 $ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamldep.opt.exe -modules -impl Transformation_MiniML_CAM/transformation.ml) > _build/default/Transformation_MiniML_CAM/.transformation.eobjs/dune__exe__Transformation.impl.d
+$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamldep.opt.exe -modules -impl Transformation_MiniML_CAM/ast.ml) > _build/default/Transformation_MiniML_CAM/.transformation.eobjs/dune__exe__Ast.impl.d
+$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I Transformation_MiniML_CAM/.transformation.eobjs/byte -I lib/.Projet_CAM.objs/byte -no-alias-deps -opaque -open Dune__exe -o Transformation_MiniML_CAM/.transformation.eobjs/byte/dune__exe__Ast.cmo -c -impl Transformation_MiniML_CAM/ast.ml)
+$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I Transformation_MiniML_CAM/.transformation.eobjs/byte -I Transformation_MiniML_CAM/.transformation.eobjs/native -I lib/.Projet_CAM.objs/byte -I lib/.Projet_CAM.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o Transformation_MiniML_CAM/.transformation.eobjs/native/dune__exe__Ast.cmx -c -impl Transformation_MiniML_CAM/ast.ml)
 $ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I Transformation_MiniML_CAM/.transformation.eobjs/byte -I Transformation_MiniML_CAM/.transformation.eobjs/native -I lib/.Projet_CAM.objs/byte -I lib/.Projet_CAM.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o Transformation_MiniML_CAM/.transformation.eobjs/native/dune__exe__Transformation.cmx -c -impl Transformation_MiniML_CAM/transformation.ml)
-$ (cd _build/default && C:\Users\DELL\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o Transformation_MiniML_CAM/transformation.exe lib/Projet_CAM.cmxa Transformation_MiniML_CAM/.transformation.eobjs/native/dune__exe.cmx Transformation_MiniML_CAM/.transformation.eobjs/native/dune__exe__Ast.cmx Transformation_MiniML_CAM/.transformation.eobjs/native/dune__exe__Transformation.cmx)
+> File "Transformation_MiniML_CAM/transformation.ml", line 5, characters 2-20:
+> 5 |   | Left of env_path       (* Pour accéder à la variable, on effectue un Car, puis on suit le chemin *)
+>       ^^^^^^^^^^^^^^^^^^
+> Error (warning 37 [unused-constructor]): constructor Left is never used to build values.
+> (However, this constructor appears in patterns.)
+>
+> File "Transformation_MiniML_CAM/transformation.ml", line 50, characters 8-20:
+> 50 |     let env_to_value (env : env) : value =
+>              ^^^^^^^^^^^^
+> Error (warning 32 [unused-value-declaration]): unused value env_to_value.
+>
+> File "Transformation_MiniML_CAM/transformation.ml", line 107, characters 8-23:
+> 107 |     let compile_program (e : expr) : program =
+>               ^^^^^^^^^^^^^^^
+> Error (warning 32 [unused-value-declaration]): unused value compile_program.
+[2]
