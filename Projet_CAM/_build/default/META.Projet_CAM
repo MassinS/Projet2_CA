@@ -13,3 +13,12 @@ package "transformation-ml-cam" (
   plugin(byte) = "transformation_ml_cam.cma"
   plugin(native) = "transformation_ml_cam.cmxs"
 )
+package "vm_cam" (
+  directory = "vm_cam"
+  description = ""
+  requires = "Projet_CAM.transformation-ml-cam"
+  archive(byte) = "vm_cam.cma"
+  archive(native) = "vm_cam.cmxa"
+  plugin(byte) = "vm_cam.cma"
+  plugin(native) = "vm_cam.cmxs"
+)

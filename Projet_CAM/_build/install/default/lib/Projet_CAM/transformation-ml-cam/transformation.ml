@@ -20,6 +20,7 @@ let rec find_in_env (x : string) (env : env) : env_path =
            "descendre" d'un niveau. Ici, on considère que l'ajout d'une nouvelle liaison
            décale toutes les anciennes vers la droite. *)
         find_in_env x (List.map (fun (v, p) -> (v, Right p)) rest)
+  
 
 
 
@@ -115,6 +116,6 @@ let rec compile (e : expr) (rho : env) : com list =
 
         
     let print_cam_code cam_code =
-      print_endline "\n=== Code CAM ===";
+      print_endline "=== Code CAM ===";
       List.iter (fun c -> print_endline (string_of_com c)) cam_code
       

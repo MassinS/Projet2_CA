@@ -1,5 +1,5 @@
-(executable
- (name vm)
- (public_name vm-cam)
+(library
+ (name vm_cam)
+ (public_name Projet_CAM.vm_cam)
  (modules vm)
  (libraries transformation_ml_cam))  

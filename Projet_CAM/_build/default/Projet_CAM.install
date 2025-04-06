@@ -34,12 +34,24 @@ lib: [
   "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Transformation.cmi" {"transformation-ml-cam/transformation_ml_cam__Transformation.cmi"}
   "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Transformation.cmt" {"transformation-ml-cam/transformation_ml_cam__Transformation.cmt"}
   "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam__Transformation.cmx" {"transformation-ml-cam/transformation_ml_cam__Transformation.cmx"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm.ml" {"vm_cam/vm.ml"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.a" {"vm_cam/vm_cam.a"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.cma" {"vm_cam/vm_cam.cma"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.cmi" {"vm_cam/vm_cam.cmi"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.cmt" {"vm_cam/vm_cam.cmt"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.cmx" {"vm_cam/vm_cam.cmx"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.cmxa" {"vm_cam/vm_cam.cmxa"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.ml" {"vm_cam/vm_cam.ml"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam__Vm.cmi" {"vm_cam/vm_cam__Vm.cmi"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam__Vm.cmt" {"vm_cam/vm_cam__Vm.cmt"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam__Vm.cmx" {"vm_cam/vm_cam__Vm.cmx"}
 ]
 libexec: [
   "_build/install/default/lib/Projet_CAM/Projet_CAM.cmxs"
   "_build/install/default/lib/Projet_CAM/transformation-ml-cam/transformation_ml_cam.cmxs" {"transformation-ml-cam/transformation_ml_cam.cmxs"}
+  "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.cmxs" {"vm_cam/vm_cam.cmxs"}
 ]
 bin: [
   "_build/install/default/bin/mini-ml-compiler.exe"
-  "_build/install/default/bin/vm-cam.exe"
+  "_build/install/default/bin/test_runner.exe"
 ]

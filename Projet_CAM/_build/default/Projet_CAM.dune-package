@@ -37,9 +37,23 @@
    transformation-ml-cam/transformation_ml_cam__Parser.cmx
    transformation-ml-cam/transformation_ml_cam__Transformation.cmi
    transformation-ml-cam/transformation_ml_cam__Transformation.cmt
-   transformation-ml-cam/transformation_ml_cam__Transformation.cmx))
- (libexec (Projet_CAM.cmxs transformation-ml-cam/transformation_ml_cam.cmxs))
- (bin (mini-ml-compiler.exe vm-cam.exe)))
+   transformation-ml-cam/transformation_ml_cam__Transformation.cmx
+   vm_cam/vm.ml
+   vm_cam/vm_cam.a
+   vm_cam/vm_cam.cma
+   vm_cam/vm_cam.cmi
+   vm_cam/vm_cam.cmt
+   vm_cam/vm_cam.cmx
+   vm_cam/vm_cam.cmxa
+   vm_cam/vm_cam.ml
+   vm_cam/vm_cam__Vm.cmi
+   vm_cam/vm_cam__Vm.cmt
+   vm_cam/vm_cam__Vm.cmx))
+ (libexec
+  (Projet_CAM.cmxs
+   transformation-ml-cam/transformation_ml_cam.cmxs
+   vm_cam/vm_cam.cmxs))
+ (bin (mini-ml-compiler.exe test_runner.exe)))
 (library
  (name Projet_CAM)
  (kind normal)
@@ -104,4 +118,28 @@
       (source
        (path Transformation)
        (impl (path transformation-ml-cam/transformation.ml))))))
+   (wrapped true))))
+(library
+ (name Projet_CAM.vm_cam)
+ (kind normal)
+ (archives (byte vm_cam/vm_cam.cma) (native vm_cam/vm_cam.cmxa))
+ (plugins (byte vm_cam/vm_cam.cma) (native vm_cam/vm_cam.cmxs))
+ (native_archives vm_cam/vm_cam.a)
+ (requires Projet_CAM.transformation-ml-cam)
+ (main_module_name Vm_cam)
+ (modes byte native)
+ (modules
+  (wrapped
+   (group
+    (alias
+     (obj_name vm_cam)
+     (visibility public)
+     (kind alias)
+     (source (path Vm_cam) (impl (path vm_cam/vm_cam.ml-gen))))
+    (name Vm_cam)
+    (modules
+     (module
+      (obj_name vm_cam__Vm)
+      (visibility public)
+      (source (path Vm) (impl (path vm_cam/vm.ml))))))
    (wrapped true))))

@@ -19,8 +19,7 @@ let rec find_in_env (x : string) (env : env) : env_path =
         (* Pour les variables qui ne sont pas trouvées en tête, on doit
            "descendre" d'un niveau. Ici, on considère que l'ajout d'une nouvelle liaison
            décale toutes les anciennes vers la droite. *)
-        find_in_env x (List.map (fun (v, p) -> (v, Right p)) rest)
-  
+        find_in_env x (List.map (fun (v, p) -> (v, Right p)) rest) 
 
 
 

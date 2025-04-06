@@ -24,6 +24,14 @@ type state = {
   env : env;           (* Environnement séparé *)
 }
 
+
+let string_of_vm_value = function
+  | Val (Int n) -> string_of_int n
+  | Val (Bool b) -> string_of_bool b
+  | Val NullValue -> "null"
+  | Closure _ -> "<closure>"
+  | Pair _ -> "<pair>"
+  
 let rec eval (st : state) : state =
   match st.code with
   | [] -> st   (*La règle 2 de la figure 8*)
@@ -53,9 +61,13 @@ let rec eval (st : state) : state =
             | _ -> failwith "Swap: pile incorrecte")
         | App ->
              ( match st.stack with
-              | Closure { code; env } :: arg :: _ ->
+              | Closure { code; env } :: arg :: tail ->
                   let new_env = ("arg", V arg) :: env in
-                  eval { code; stack = []; env = new_env }
+                  eval { 
+                    code = code; 
+                    stack = tail;  (* Conserve le reste de la pile *)
+                    env = new_env 
+                  }
               | _ -> failwith "App: closure et argument attendus")
         | Rplac ->
                 (match st.env with
@@ -88,3 +100,12 @@ let rec eval (st : state) : state =
             | _ -> failwith "Op: pile incorrecte")
       in
       eval new_state
+
+
+      let run_cam_program cam_code =
+        let initial_state = {
+          code = cam_code;
+          stack = [Pair(Closure {code=[]; env=[]}, Val NullValue)]; (* Environnement initial structuré *)
+          env = [];
+        } in
+        eval initial_state

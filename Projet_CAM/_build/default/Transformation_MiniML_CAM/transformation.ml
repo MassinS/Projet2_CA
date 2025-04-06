@@ -25,11 +25,9 @@ let rec find_in_env (x : string) (env : env) : env_path =
 
 
 let rec path_to_coms = function
-| Top -> [Car]
+| Top -> []  
 | Left p -> Car :: path_to_coms p
-| Right p -> Cdr :: path_to_coms p
-
-         
+| Right p -> Cdr :: path_to_coms p     
   
   (*Fonction pour étendre l'env *)
   (*
@@ -81,7 +79,7 @@ let rec compile (e : expr) (rho : env) : com list =
         let c = compile e rho' in
         [Cur c]
     | Apply (e1, e2) ->
-    compile e1 rho @ [Swap] @ compile e2 rho @ [Cons; App]
+    compile e2 rho @ [Push] @ compile e1 rho @ [Swap; Cons; App]
 
 
 (* Règle (1) : Compilation du programme complet *)
