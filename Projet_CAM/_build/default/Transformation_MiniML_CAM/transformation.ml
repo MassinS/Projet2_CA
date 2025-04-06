@@ -19,15 +19,16 @@ let rec find_in_env (x : string) (env : env) : env_path =
         (* Pour les variables qui ne sont pas trouvées en tête, on doit
            "descendre" d'un niveau. Ici, on considère que l'ajout d'une nouvelle liaison
            décale toutes les anciennes vers la droite. *)
-        find_in_env x (List.map (fun (v, p) -> (v, Right p)) rest)
-  
+        find_in_env x (List.map (fun (v, p) -> (v, Right p)) rest) 
 
 
 
 let rec path_to_coms = function
-| Top -> []  
+| Top -> [Cdr ; Cdr]  (* On doit d'abord faire un Cdr pour accéder à la valeur, puis un Car pour l'obtenir *)
 | Left p -> Car :: path_to_coms p
-| Right p -> Cdr :: path_to_coms p     
+| Right p -> Cdr :: path_to_coms p
+
+         
   
   (*Fonction pour étendre l'env *)
   (*
@@ -67,24 +68,32 @@ let rec compile (e : expr) (rho : env) : com list =
       let c1 = compile e1 rho in
       let rho' = extend_env p rho in  
       let c2 = compile e2 rho' in
-      [Push] @ c1  @ c2 @ [Cons]
+      [Push] @ c1 @ [Cons] @ c2
 
     | LetRec(p,e1,e2) -> 
       let rho1 = extend_env p rho in
       let c1 = compile e1 rho1 in
       let c2 = compile e2 rho1 in
       [Quote NullValue] @ [Cons; Push] @ c1 @ [Swap; Rplac] @ c2
-    | Lambda (p, e) ->
+      | Lambda (p, e) ->
         let rho' = extend_env p rho in
         let c = compile e rho' in
-        [Cur c]
+        [Cur c; ] 
     | Apply (e1, e2) ->
-    compile e2 rho @ [Push] @ compile e1 rho @ [Swap; Cons; App]
+          let c1 = compile e1 rho in
+          let c2 = compile e2 rho in
+          [Push] @ c1 @ [Swap] @ c2 @ [Cons; App]
 
 
 (* Règle (1) : Compilation du programme complet *)
 (* Définition du type program est déjà présente dans AST CAM (program = com list) *)
-    let init_pat : env = []
+let init_pat : env = 
+  [
+    ("+", Top);  (* L'opérateur + est au sommet de la pile initiale *)
+    ("-", Right Top);  (* L'opérateur - est à droite du sommet *)
+    ("*", Right (Right Top))  (* L'opérateur * est encore à droite *)
+  ]
+  
     (*Compiler un programme MiniML en un programme CAM*)
     let compile_program (e : expr) : program =
       compile e init_pat

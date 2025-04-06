@@ -1,1 +1,1 @@
-let f = fun x -> x in f 5
+(fun x -> x) 42
