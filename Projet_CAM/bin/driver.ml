@@ -28,3 +28,4 @@ let () =
   (* Étape 3 : Transformation en CAM *)
   let cam_code = Transformation.compile_program program in
   Transformation.print_cam_code cam_code;
+  

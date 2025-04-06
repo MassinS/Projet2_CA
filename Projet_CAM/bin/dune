@@ -2,4 +2,4 @@
  (name driver)
  (public_name mini-ml-compiler)
  (modules driver)
- (libraries transformation_ml_cam))  ; Doit correspondre au nom dans le dune principal
+ (libraries transformation_ml_cam)) 

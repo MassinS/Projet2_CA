@@ -39,7 +39,7 @@
    transformation-ml-cam/transformation_ml_cam__Transformation.cmt
    transformation-ml-cam/transformation_ml_cam__Transformation.cmx))
  (libexec (Projet_CAM.cmxs transformation-ml-cam/transformation_ml_cam.cmxs))
- (bin (mini-ml-compiler.exe)))
+ (bin (mini-ml-compiler.exe vm-cam.exe)))
 (library
  (name Projet_CAM)
  (kind normal)

@@ -41,4 +41,5 @@ libexec: [
 ]
 bin: [
   "_build/install/default/bin/mini-ml-compiler.exe"
+  "_build/install/default/bin/vm-cam.exe"
 ]

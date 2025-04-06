@@ -23,11 +23,10 @@ let rec find_in_env (x : string) (env : env) : env_path =
 
 
 
-let rec path_to_coms (p : env_path) : com list =
-  match p with
-  | Top -> []    (* Pas besoin d'instructions si la variable est au sommet *)
-  | Left rest -> Car :: path_to_coms rest
-  | Right rest -> Cdr :: path_to_coms rest
+let rec path_to_coms = function
+| Top -> [Car]
+| Left p -> Car :: path_to_coms p
+| Right p -> Cdr :: path_to_coms p
 
          
   
@@ -67,9 +66,9 @@ let rec compile (e : expr) (rho : env) : com list =
       
     | Let (p, e1, e2) ->
       let c1 = compile e1 rho in
-      let rho' = extend_env p rho in  (* Fonction à définir pour étendre l’environnement *)
+      let rho' = extend_env p rho in  
       let c2 = compile e2 rho' in
-      [Push] @ c1 @ [Swap] @ c2 @ [Cons]
+      [Push] @ c1  @ c2 @ [Cons]
 
     | LetRec(p,e1,e2) -> 
       let rho1 = extend_env p rho in
@@ -81,33 +80,41 @@ let rec compile (e : expr) (rho : env) : com list =
         let c = compile e rho' in
         [Cur c]
     | Apply (e1, e2) ->
-          [Push] @ compile e1 rho @ [Swap] @ compile e2 rho @ [Cons; App]
+    compile e1 rho @ [Swap] @ compile e2 rho @ [Cons; App]
 
 
 (* Règle (1) : Compilation du programme complet *)
 (* Définition du type program est déjà présente dans AST CAM (program = com list) *)
     let init_pat : env = []
-    
+    (*Compiler un programme MiniML en un programme CAM*)
     let compile_program (e : expr) : program =
       compile e init_pat
-      let string_of_com = function
-      | Quote (Int n) -> Printf.sprintf "Quote(Int %d)" n
-      | Quote (Bool true) -> "Quote(Bool true)"
-      | Quote (Bool false) -> "Quote(Bool false)"
-      | Quote NullValue -> "Quote(Null)"
-      | Op Add -> "Op(Add)"
-      | Op Sub -> "Op(Sub)"
-      | Op Mult -> "Op(Mult)"
-      | Car -> "Car"
-      | Cdr -> "Cdr"
-      | Cons -> "Cons"
-      | Push -> "Push"
-      | Swap -> "Swap"
-      | App -> "App"
-      | Rplac -> "Rplac"
-      | Cur _ -> "Cur[...]"  (* Underscore pour ignorer le paramètre non utilisé *)
-      | Branch _ -> "Branch[...]"  (* Underscore pour ignorer les paramètres *)
-    
+
+
+      let rec string_of_com com =
+        match com with
+        | Quote (Int n) -> Printf.sprintf "Quote(Int %d)" n
+        | Quote (Bool true) -> "Quote(Bool true)"
+        | Quote (Bool false) -> "Quote(Bool false)"
+        | Quote NullValue -> "Quote(Null)"
+        | Op Add -> "Op(Add)"
+        | Op Sub -> "Op(Sub)"
+        | Op Mult -> "Op(Mult)"
+        | Car -> "Car"
+        | Cdr -> "Cdr"
+        | Cons -> "Cons"
+        | Push -> "Push"
+        | Swap -> "Swap"
+        | App -> "App"
+        | Rplac -> "Rplac"
+        | Cur code -> "Cur[" ^ (string_of_cam_code code) ^ "]"
+        | Branch (code1, code2) -> "Branch(" ^ (string_of_cam_code code1) ^ ", " ^ (string_of_cam_code code2) ^ ")"
+      
+      and string_of_cam_code code =
+        String.concat "; " (List.map string_of_com code)
+
+        
     let print_cam_code cam_code =
       print_endline "\n=== Code CAM ===";
       List.iter (fun c -> print_endline (string_of_com c)) cam_code
+      
