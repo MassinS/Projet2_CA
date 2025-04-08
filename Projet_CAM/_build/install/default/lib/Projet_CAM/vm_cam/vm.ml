@@ -48,23 +48,30 @@ let rec eval (st : state) : state =
             | Pair (v1, _) :: tail -> { st with code = rest; stack = v1 :: tail }
             | _ -> failwith "Car: pile incorrecte")
         | Cdr -> 
-            (match st.stack with
-            | Pair (_, v2) :: tail -> { st with code = rest; stack = v2 :: tail }
-            | _ -> failwith "Cdr: pile incorrecte")
+              (match st.stack with
+              | Pair (_, v2) :: tail -> { st with code = rest; stack = v2 :: tail }
+              | _ -> failwith "Cdr: la pile doit contenir une paire")
         | Cons -> 
             (match st.stack with
-            | v2 :: v1 :: tail -> { st with code = rest; stack = Pair (v1, v2) :: tail }
+            | v1 :: v2 :: tail -> { st with code = rest; stack = Pair (v2, v1) :: tail }
             | _ -> failwith "Cons: pile incorrecte")
         | Swap -> 
-            (match st.stack with
+          ( match st.stack with
             | v1 :: v2 :: tail -> { st with  code = rest; stack = v2 :: v1 :: tail }
             | _ -> failwith "Swap: pile incorrecte")
         | App ->
-             ( match st.stack with
-              | Closure { code; env } :: arg :: _ ->
+              (match st.stack with
+              | arg :: Closure { code; env } :: tail ->
+                  (* Construit explicitement la paire (env, arg) attendue par le code compilé *)
+                  let pair = Pair(Val NullValue, arg) in
                   let new_env = ("arg", V arg) :: env in
-                  eval { code; stack = []; env = new_env }
+                  { 
+                      code = code;
+                      stack = pair :: tail;  (* Place la paire sur la pile *)
+                      env = new_env
+                  } |> eval
               | _ -> failwith "App: closure et argument attendus")
+
         | Rplac ->
                 (match st.env with
                 | ("current_closure", Cl c) :: _ ->
@@ -73,25 +80,35 @@ let rec eval (st : state) : state =
                     { st with code = rest; env = recursive_env }
                 | _ -> failwith "Rplac: closure courante manquante")
 
-        | Cur code_sub ->
-            let new_closure = {
-            code = code_sub;
-            env = st.env  (* Capture TOUT l'environnement courant *)
-            } in
-            { st with code = rest; stack = Closure new_closure :: st.stack }  
+                | Cur code_sub ->
+                  let new_closure = {
+                      code = code_sub;
+                      env = ("current_closure", Cl { code = code_sub; env = st.env }) :: st.env
+                  } in
+                  { st with code = rest; stack = Closure new_closure :: st.stack }
 
-        | Branch (code_true, code_false) -> 
-            (match st.stack with
-            | Val (Bool true) :: tail -> { st with code = code_true @ rest; stack = tail }
-            | Val (Bool false) :: tail -> { st with code = code_false @ rest; stack = tail }
-            | _ -> failwith "Branch: condition non booléenne")
+                  | Branch (code_true, code_false) -> 
+                    (match st.stack with
+                    | Val (Bool true) :: tail -> 
+                        { st with code = code_true @ rest; stack = tail }
+                    | Val (Bool false) :: tail -> 
+                        { st with code = code_false @ rest; stack = tail }
+                    | top :: _ -> 
+                        let top_str = string_of_vm_value top in
+                        failwith (Printf.sprintf "Branch: condition non booléenne (trouvé: %s)" top_str)
+                    | [] -> 
+                        failwith "Branch: pile vide")
         | Op op -> 
             (match st.stack with
             | Val (Int n2) :: Val (Int n1) :: tail -> 
                 let res = match op with
                   | Add -> n1 + n2
                   | Sub -> n1 - n2
-                  | Mult -> n1 * n2
+                  | Mult -> n1 * n2 
+                  | Div -> if n2 = 0 then raise Division_by_zero else n1 / n2
+                  | Equal -> if n1 = n2 then 1 else 0
+                  | Less -> if n1 < n2 then 1 else 0
+                  | Greater -> if n1 > n2 then 1 else 0
                 in { st with code = rest; stack = Val (Int res) :: tail }
             | _ -> failwith "Op: pile incorrecte")
       in
@@ -101,7 +118,12 @@ let rec eval (st : state) : state =
       let run_cam_program cam_code =
         let initial_state = {
           code = cam_code;
-          stack = [Closure { code = []; env = [] }];  (* Fermeture vide initiale *)
+          stack = [
+            Closure {code = [Op Add]; env = []};
+            Closure {code = [Op Sub]; env = []};
+            Closure {code = [Op Mult]; env = []};
+            Val NullValue  (* Valeur neutre pour compléter la pile *)
+          ];
           env = [];
         } in
         eval initial_state

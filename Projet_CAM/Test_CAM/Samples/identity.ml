@@ -1,1 +1,1 @@
-(fun x -> x) 42
+let y = 2 in (fun x -> x + y) 40

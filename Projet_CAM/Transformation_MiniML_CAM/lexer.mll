@@ -30,6 +30,12 @@ rule token = parse
 | "then"             { THEN }
 | "else"             { ELSE }
 | "="                { EQ }
+| "+"                { PLUS }
+| "-"                { MINUS }
+| "*"                { MULT }
+| "/"                { DIV }
+| "<"                { LESS }
+| ">"                { GREATER }
 | "->"               { RIGHT_ARROW }
 | ident as lxm       { IDENT(lxm) }
 | ['\n' ]            { (Lexing.new_line lexbuf) ; (token lexbuf) }

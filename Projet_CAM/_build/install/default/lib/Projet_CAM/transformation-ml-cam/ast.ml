@@ -1,7 +1,7 @@
 (* Abstract Syntax of Mini-ML (Figure 1, page 14) *)
 
 type ident = string
-
+(*Motif*)
 type pat =
   | Pairpat of pat * pat
   | IdentPat of ident
@@ -42,4 +42,9 @@ and value =
   | Bool of bool
   | NullValue
 
-and operator = Add | Sub | Mult
+and operator = Add | Sub | Mult | Div | Equal | Less | Greater
+
+(* Environnement pour la compilation *)
+
+(* Environnement pour la transformation *) 
+

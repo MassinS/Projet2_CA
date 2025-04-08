@@ -2,7 +2,7 @@
 open Ast
 %}
  
-%token LET IN IF THEN ELSE FUN EQ
+%token LET IN IF THEN ELSE FUN EQ PLUS MINUS MULT DIV LESS GREATER
 
 %token <char> CHAR
 %token <int> INT
@@ -19,7 +19,7 @@ open Ast
 %nonassoc  EQ
 %right     RIGHT_ARROW
 %right     COMMA
-%left TIMES DIV
+%left MULT DIV
                 
 %nonassoc  IDENT LPAREN RPAREN        /* highest precedence */        
 
@@ -42,8 +42,15 @@ expression :
 | LET pat EQ expression IN expression     { Let($2,$4,$6) }
 | LET REC pat EQ expression IN expression { LetRec($3,$5,$7) }
 | IF expression THEN expression ELSE expression  { If($2,$4,$6) }
-| expression expression                   { Apply($1,$2) }
+| expression expression                     { Apply($1,$2) }
 | LPAREN expression COMMA expression RPAREN { Mlpair($2,$4) }
+| expression PLUS expression                {Apply(Ident("+"),Mlpair($1,$3))}
+| expression MINUS expression               {Apply(Ident("-"),Mlpair($1,$3))}
+| expression MULT expression                {Apply(Ident("*"),Mlpair($1,$3))}
+| expression DIV expression                 {Apply(Ident("/"),Mlpair($1,$3))}
+| expression EQ expression                  {Apply(Ident("="),Mlpair($1,$3))}
+| expression LESS expression                 {Apply(Ident("<"),Mlpair($1,$3))}
+| expression GREATER expression              {Apply(Ident(">"),Mlpair($1,$3))}
 ;
 
 pat:

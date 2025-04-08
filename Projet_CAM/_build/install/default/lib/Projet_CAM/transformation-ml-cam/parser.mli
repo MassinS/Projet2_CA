@@ -6,20 +6,25 @@ type token =
   | ELSE
   | FUN
   | EQ
+  | PLUS
+  | MINUS
+  | MULT
+  | DIV
+  | LESS
   | CHAR of (
 # 7 "parser.mly"
         char
-# 13 "parser.mli"
+# 18 "parser.mli"
 )
   | INT of (
 # 8 "parser.mly"
         int
-# 18 "parser.mli"
+# 23 "parser.mli"
 )
   | IDENT of (
 # 9 "parser.mly"
         string
-# 23 "parser.mli"
+# 28 "parser.mli"
 )
   | TRUE
   | FALSE
