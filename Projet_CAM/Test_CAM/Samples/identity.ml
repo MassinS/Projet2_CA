@@ -1,3 +1,3 @@
-let rec fact = fun x ->
-  if x = 0 then 1 else x * fact (x - 1)
-in fact 4
+let (x,y) = (1,2) in 
+let (a,b) = (4,5) in
+y
