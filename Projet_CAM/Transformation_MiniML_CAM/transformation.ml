@@ -6,16 +6,20 @@ type env = (ident * env_path list) list
 
 (* Environnement initial avec opérateurs prédéfinis *)
 let init_env : env = 
-  ["fst", []; 
-   "snd", [];
+  ["car", [];      (* fst -> car *)
+   "cdr", [];      (* snd -> cdr *)
    "+", []; 
    "-", []; 
    "*", []; 
    "/", []; 
    "<", []; 
    ">", []; 
-   "=", []]
+   "=", [];
+   "cons", [];     (* pour construire des paires *)
+   "swap", [];     (* pour échanger des valeurs *)
+   "app", []]      (* application de fonction *)
 
+   
 (* Cherche le chemin d'accès d'un identifiant dans l'environnement *)
 let rec access x env =
   match env with
@@ -34,34 +38,33 @@ let rec pattern_vars = function
 
 
 (* Étend l'environnement avec un nouveau pattern *)
-(* Étend l'environnement avec un nouveau pattern *)
 let extend_env (p : pat) (env : env) : env =
   match p with
   | IdentPat x ->
-      (x, [Car]) :: List.map (fun (y, path) -> (y, Cdr :: path)) env
+      (x, [Cdr]) :: List.map (fun (y, path) -> (y, Car :: path)) env
   
   | Pairpat (p1, p2) ->
       let vars_p1 = pattern_vars p1 in
       let vars_p2 = pattern_vars p2 in
       
-      (* Étape 1: Ajouter les variables de p1 avec [Car; Car] (pour x dans (x,y)) *)
+      (* Étape 1: Ajouter les variables de p1 avec [Cdr; Car] *)
       let env_after_p1 = 
-        List.fold_right (fun x env -> (x, [Car; Car]) :: env) vars_p1 env
+        List.fold_right (fun x env -> (x, [Cdr; Car]) :: env) vars_p1 env
       in
       
-      (* Étape 2: Ajouter les variables de p2 avec [Car; Cdr] (pour y dans (x,y)) *)
+      (* Étape 2: Ajouter les variables de p2 avec [Cdr; Cdr] *)
       let env_after_p2 = 
-        List.fold_right (fun y env -> (y, [Car; Cdr]) :: env) vars_p2 env_after_p1
+        List.fold_right (fun y env -> (y, [Cdr; Cdr]) :: env) vars_p2 env_after_p1
       in
       
-      (* Étape 3: Préfixer les variables existantes avec [Cdr] *)
+      (* Étape 3: Préfixer les variables existantes avec Car *)
       let old_vars = List.filter (fun (y,_) -> not (List.mem y (vars_p1 @ vars_p2))) env in
-      let prefixed_old_vars = List.map (fun (y, path) -> (y, Cdr :: path)) old_vars in
+      let prefixed_old_vars = List.map (fun (y, path) -> (y, Car :: path)) old_vars in
       
-      (* Combiner les nouvelles variables avec les anciennes préfixées *)
       env_after_p2 @ prefixed_old_vars
   
   | NullPat -> env
+
 
 
   

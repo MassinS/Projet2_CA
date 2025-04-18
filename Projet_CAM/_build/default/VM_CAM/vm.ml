@@ -22,17 +22,50 @@ let string_of_vm_value = function
   | Closure _ -> "<closure>"
   | Pair _ -> "<pair>"
 
+  let print_state st =
+    Printf.printf "=== State ===\n";
+    Printf.printf "Code restant: %d instructions\n" (List.length st.code);
+    Printf.printf "Stack (%d elements):\n" (List.length st.stack);
+    List.iteri (fun i v -> Printf.printf "  %d: %s\n" i (string_of_vm_value v)) st.stack;
+    Printf.printf "=============\n"
+
+    let  string_of_com = function
+  | Quote v -> "Quote " ^ string_of_vm_value (Val v)
+  | Push -> "Push"
+  | Car -> "Car"
+  | Cdr -> "Cdr"
+  | Cons -> "Cons"
+  | Swap -> "Swap"
+  | App -> "App"
+  | Rplac -> "Rplac"
+  | Cur _ -> "Cur [code]"
+  | Branch (_, _) -> "Branch"
+  | Op op -> "Op " ^ (match op with Add -> "+" | Sub -> "-" | Mult -> "*" | Div -> "/" 
+                      | Equal -> "=" | Less -> "<" | Greater -> ">")
+         
+                      
+
 let rec eval (st : state) : state =
+  let () = Printf.printf "Instruction: %s\n" (match st.code with [] -> "[]" | hd::_ -> string_of_com hd) in
+  let () = Printf.printf "Stack: [%s]\n" (String.concat "; " (List.map string_of_vm_value st.stack)) in
+
   match st.code with
-  | [] -> st
+  | [] -> let () = Printf.printf "Fin d'exécution\n" in
+      st
   | instr :: rest ->
+    let () = Printf.printf "Exécution: %s\n" (string_of_com instr) in
       let new_state =
         match instr with
         | Quote v -> {  code = rest; stack = Val v :: st.stack }
         | Push -> 
-            (match st.stack with
-            | v :: tail -> { code = rest; stack = v :: v :: tail }
-            | _ -> failwith "Push: pile vide")
+          { 
+            code = rest; 
+            stack = (match st.stack with
+                    | v :: tail -> v :: v :: tail  (* Duplique le top si existe *)
+                    | [] -> failwith "Push: pile vide" 
+            )
+          }
+
         | Car -> 
             (match st.stack with
             | Pair (v1, _) :: tail -> {  code = rest; stack = v1 :: tail }
@@ -44,6 +77,7 @@ let rec eval (st : state) : state =
         | Cons -> 
             (match st.stack with
             | v1 :: v2 :: tail -> {  code = rest; stack = Pair (v2, v1) :: tail }
+            | v1 :: [] -> {  code = rest; stack = Pair (v1, Val NullValue) :: [] } (* Si la pile a un seul élément, le duplique *)
             | _ -> failwith "Cons: pile incorrecte")
         | Swap -> 
           ( match st.stack with
@@ -53,7 +87,7 @@ let rec eval (st : state) : state =
               (match st.stack with
               | Closure { code; env } :: arg :: tail ->
                   (* Conforme à la règle 16 : (closure, arg) devient (env, arg) *)
-                  let new_stack = Pair (env, arg) :: tail in
+                  let new_stack = Pair (arg, env) :: tail in
                   { 
                       code = code;
                       stack = new_stack;
@@ -67,6 +101,7 @@ let rec eval (st : state) : state =
                     { code = rest; stack = Closure recursive_closure :: tail }
                 | _ -> failwith "Rplac: closure et env attendus")
 
+                
         | Cur code_sub ->
                   (match st.stack with
                   | env :: tail ->
@@ -90,29 +125,61 @@ let rec eval (st : state) : state =
                     | [] -> 
                         failwith "Branch: pile vide")
         | Op op -> 
-              (match st.stack with
-              | Val (Int n2) :: Val (Int n1) :: tail -> 
-                  let res = match op with
-                    | Add -> Val (Int (n1 + n2))
-                    | Sub -> Val (Int (n1 - n2))
-                    | Mult -> Val (Int (n1 * n2))
-                    | Div -> if n2 = 0 then raise Division_by_zero else Val (Int (n1 / n2))
-                    | Equal -> Val (Bool (n1 = n2))
-                    | Less -> Val (Bool (n1 < n2))
-                    | Greater -> Val (Bool (n1 > n2))
-                  in {  code = rest; stack = res :: tail }
-              | _ -> failwith "Op: pile incorrecte")
+                  (match st.stack with
+                  (* Cas où les opérandes sont dans une Paire (ex: (3,5) *)
+                  | Pair(Val (Int n1), Val (Int n2)) :: tail ->
+                      Printf.printf "Op: %d %s %d (from pair)\n" n1 (string_of_com instr) n2;
+                      let res = match op with
+                        | Add -> Val (Int (n1 + n2))
+                        | Sub -> Val (Int (n1 - n2))
+                        | Mult -> Val (Int (n1 * n2))
+                        | Div -> if n2 = 0 then raise Division_by_zero else Val (Int (n1 / n2))
+                        | Equal -> Val (Bool (n1 = n2))
+                        | Less -> Val (Bool (n1 < n2))
+                        | Greater -> Val (Bool (n1 > n2))
+                      in { code = rest; stack = res :: tail }
+                  
+                  (* Cas classique avec deux entiers empilés *)
+                  | Val (Int n2) :: Val (Int n1) :: tail -> 
+                      Printf.printf "Op: %d %s %d\n" n1 (string_of_com instr) n2;
+                      let res = match op with
+                        | Add -> Val (Int (n1 + n2))
+                        | Sub -> Val (Int (n1 - n2))
+                        | Mult -> Val (Int (n1 * n2))
+                        | Div -> if n2 = 0 then raise Division_by_zero else Val (Int (n1 / n2))
+                        | Equal -> Val (Bool (n1 = n2))
+                        | Less -> Val (Bool (n1 < n2))
+                        | Greater -> Val (Bool (n1 > n2))
+                      in { code = rest; stack = res :: tail }
+                  
+                  | _ -> failwith "Op: pile incorrecte")
+                          
       in
+      let () = Printf.printf "=== Après exécution ===\n" in
+      let () = print_state new_state in
       eval new_state
-
-let run_cam_program cam_code =
-  let initial_state = {
-    code = cam_code;
-    stack = [
-      Closure {code = [Op Add]; env = Val NullValue};
-      Closure {code = [Op Sub]; env = Val NullValue};
-      Closure {code = [Op Mult]; env = Val NullValue};
-      Val NullValue
-    ];
-  } in
-  eval initial_state
+    
+      let run_cam_program cam_code =
+        (* Fermetures prédéfinies pour les opérateurs *)
+        let init_stack = [
+          Closure {  (* Fermeture pour '+' *)
+            code = [Cdr; Car; Op Add]; (* Extrait la paire et applique l'opération *)
+            env = Val (Int 0)
+          };
+          Closure {  (* Fermeture pour '-' *)
+            code = [Cdr; Car; Op Sub];
+            env = Val (Int 0)
+          };
+          Closure {  (* Fermeture pour 'car' *)
+            code = [Car];
+            env = Val (Int 0)
+          }
+        ] in
+        
+        let initial_state = {
+          code = cam_code;
+          stack = init_stack; (* Stack initial avec opérateurs *)
+        } in
+              
+        eval initial_state
+        

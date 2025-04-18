@@ -1,1 +1,1 @@
-VM_CAM/vm.ml: Printf Transformation_ml_cam
+VM_CAM/vm.ml: List Printf String Transformation_ml_cam
