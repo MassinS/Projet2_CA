@@ -52,6 +52,7 @@ libexec: [
   "_build/install/default/lib/Projet_CAM/vm_cam/vm_cam.cmxs" {"vm_cam/vm_cam.cmxs"}
 ]
 bin: [
+  "_build/install/default/bin/cam_simplifie.exe"
   "_build/install/default/bin/mini-ml-compiler.exe"
   "_build/install/default/bin/test_runner.exe"
 ]

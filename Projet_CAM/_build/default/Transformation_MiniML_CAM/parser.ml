@@ -354,7 +354,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expression) in
     Obj.repr(
 # 47 "parser.mly"
-                              ( Apply(Apply(Ident "+", _1), _3) )
+                                            (Apply(Ident("+"),Mlpair(_1,_3)))
 # 359 "parser.ml"
                : 'expression))
 ; (fun __caml_parser_env ->
@@ -362,7 +362,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expression) in
     Obj.repr(
 # 48 "parser.mly"
-                              ( Apply(Apply(Ident "-", _1), _3) )
+                                            (Apply(Ident("-"),Mlpair(_1,_3)))
 # 367 "parser.ml"
                : 'expression))
 ; (fun __caml_parser_env ->
@@ -370,7 +370,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expression) in
     Obj.repr(
 # 49 "parser.mly"
-                              ( Apply(Apply(Ident "*", _1), _3) )
+                                            (Apply(Ident("*"),Mlpair(_1,_3)))
 # 375 "parser.ml"
                : 'expression))
 ; (fun __caml_parser_env ->
@@ -378,7 +378,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expression) in
     Obj.repr(
 # 50 "parser.mly"
-                              ( Apply(Apply(Ident "/", _1), _3) )
+                                            (Apply(Ident("/"),Mlpair(_1,_3)))
 # 383 "parser.ml"
                : 'expression))
 ; (fun __caml_parser_env ->
@@ -386,7 +386,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expression) in
     Obj.repr(
 # 51 "parser.mly"
-                              ( Apply(Apply(Ident "=", _1), _3) )
+                                            (Apply(Ident("="),Mlpair(_1,_3)))
 # 391 "parser.ml"
                : 'expression))
 ; (fun __caml_parser_env ->
@@ -394,7 +394,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expression) in
     Obj.repr(
 # 52 "parser.mly"
-                              ( Apply(Apply(Ident "<", _1), _3) )
+                                             (Apply(Ident("<"),Mlpair(_1,_3)))
 # 399 "parser.ml"
                : 'expression))
 ; (fun __caml_parser_env ->
@@ -402,7 +402,7 @@ let yyact = [|
     let _3 = (Parsing.peek_val __caml_parser_env 0 : 'expression) in
     Obj.repr(
 # 53 "parser.mly"
-                                ( Apply(Apply(Ident ">", _1), _3) )
+                                             (Apply(Ident(">"),Mlpair(_1,_3)))
 # 407 "parser.ml"
                : 'expression))
 ; (fun __caml_parser_env ->

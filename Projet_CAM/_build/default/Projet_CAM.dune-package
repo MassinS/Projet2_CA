@@ -53,7 +53,7 @@
   (Projet_CAM.cmxs
    transformation-ml-cam/transformation_ml_cam.cmxs
    vm_cam/vm_cam.cmxs))
- (bin (mini-ml-compiler.exe test_runner.exe)))
+ (bin (cam_simplifie.exe mini-ml-compiler.exe test_runner.exe)))
 (library
  (name Projet_CAM)
  (kind normal)

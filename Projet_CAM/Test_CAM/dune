@@ -2,4 +2,6 @@
  (name test_runner)
  (public_name test_runner)
  (modules test_runner)
- (libraries transformation_ml_cam vm_cam))
+ (libraries transformation_ml_cam vm_cam)
+ (flags (:standard -w -37))
+ )

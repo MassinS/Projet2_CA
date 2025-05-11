@@ -1,0 +1,1 @@
+(fun x -> if x = 0 then 42 else x) 0

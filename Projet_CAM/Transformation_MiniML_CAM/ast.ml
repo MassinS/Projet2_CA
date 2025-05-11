@@ -1,13 +1,15 @@
 (* Abstract Syntax of Mini-ML (Figure 1, page 14) *)
 
 type ident = string
+
 (*Motif*)
+
 type pat =
   | Pairpat of pat * pat
   | IdentPat of ident
   | NullPat
 
-type expr =
+  type expr =
   | Ident of ident
   | Number of int
   | False
@@ -18,6 +20,8 @@ type expr =
   | Let of pat * expr * expr
   | LetRec of pat * expr * expr
   | If of expr * expr * expr
+  | MLfst
+  | MLsnd
 
 
   
@@ -36,11 +40,15 @@ and com =
   | Rplac
   | Cur of coms
   | Branch of coms * coms
+  | Fst
+  | Snd
 
 and value =
   | Int of int
   | Bool of bool
   | NullValue
+  | Pair of value * value
+  | Closure of coms * value
 
 and operator = Add | Sub | Mult | Div | Equal | Less | Greater
 

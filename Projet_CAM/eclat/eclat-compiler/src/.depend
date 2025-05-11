@@ -1,0 +1,5 @@
+src/Eclat/frontend/parser.cmo : \
+    src/Eclat/frontend/parser.cmi
+src/Eclat/frontend/parser.cmx : \
+    src/Eclat/frontend/parser.cmi
+src/Eclat/frontend/parser.cmi :

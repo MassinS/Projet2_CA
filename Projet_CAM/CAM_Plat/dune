@@ -1,0 +1,5 @@
+(executable
+ (name cam_simplifie)
+ (public_name cam_simplifie)
+ (modules cam_simplifie)
+ (libraries transformation_ml_cam))  
