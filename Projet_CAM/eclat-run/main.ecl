@@ -138,7 +138,7 @@ let main (bouton : bool) =
     print_string "debut \n";
     let acc_final = vm( 0, 0, 0) in
 
-    print_string "Résultat = "; print_int acc_final; print_newline ();
+    print_string "Résultat = "; print_int (acc_final-1); print_newline ();
 
 
     print_string "fin \n";

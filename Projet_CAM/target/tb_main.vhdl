@@ -61,19 +61,19 @@ end component;
       end process;
 
   process
-  variable \$v696\ : value(0 to 0) := (others => '0');
+  variable \$v771\ : value(0 to 0) := (others => '0');
 begin
 
       -- Start computation
     wait for 5 ns;
-      \$v696\ := eclat_true;
-      tb_argument <= \$v696\;
+      \$v771\ := eclat_true;
+      tb_argument <= \$v771\;
 wait for 10 ns;
-      \$v696\ := eclat_true;
-      tb_argument <= \$v696\;
+      \$v771\ := eclat_true;
+      tb_argument <= \$v771\;
 wait for 10 ns;
-      \$v696\ := eclat_false;
-      tb_argument <= \$v696\;
+      \$v771\ := eclat_false;
+      tb_argument <= \$v771\;
 wait for 10 ns;
 
     wait;
