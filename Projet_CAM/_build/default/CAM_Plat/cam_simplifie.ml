@@ -118,67 +118,58 @@ let flatten_code prog =
 
   
   
-
- (* 5. Génération du fichier code.ecl *)
 let dump_ecl filename (flat : flat_instr array) : unit =
   let oc = open_out filename in
   (* création du tableau en Eclat *)
-  Printf.fprintf oc "let code = create<%d>() ;;\n\n" (Array.length flat);
+  let n = Array.length flat in
+  Printf.fprintf oc "let code = create<%d>() ;;\n\n" n;
   Printf.fprintf oc "let load_code () =\n\n";
   
   Array.iteri (fun k instr ->
-    let line =
+    (* on génère d’abord la partie commune *)
+    let base =
       match instr with
       | F_Quote v ->
           (match v with
-           | Int n    ->
-               Printf.sprintf "  set(code,%d,Quote_int %d);;" k n
-           | Bool true    ->
-               Printf.sprintf "  set(code,%d,Quote_bool true);;" k
-           | Bool false   ->
-               Printf.sprintf "  set(code,%d,Quote_bool false);;" k
-           | NullValue    ->
-               Printf.sprintf "  set(code,%d,Quote_null ());;" k
-           | Pair _ | Closure _ ->
-               (* devraient déjà avoir été éliminés en amont *)
-               failwith "Unexpected Pair/Closure in dump_ecl")
-      | F_Push ->
-          Printf.sprintf "  set(code,%d,Push ());;" k
-      | F_Car ->
-          Printf.sprintf "  set(code,%d,Car ());;" k
-      | F_Cdr ->
-          Printf.sprintf "  set(code,%d,Cdr ());;" k
-      | F_Cons ->
-          Printf.sprintf "  set(code,%d,Cons ());;" k
-      | F_Swap ->
-          Printf.sprintf "  set(code,%d,Swap ());;" k
-      | F_App ->
-          Printf.sprintf "  set(code,%d,App ());;" k
-      | F_Rplac ->
-          Printf.sprintf "  set(code,%d,Rplac ());;" k
-      | F_Cur a ->
-          Printf.sprintf "  set(code,%d,Cur %d);;" k a
-      | F_Branch(a,b)   -> Printf.sprintf "set(code,%d,Branch(%d,%d));;" k a b
+           | Int n  -> Printf.sprintf "  set(code,%d,Quote_int %d)" k n
+           | Bool b -> Printf.sprintf "  set(code,%d,Quote_bool %b)" k b
+           | NullValue -> Printf.sprintf "  set(code,%d,Quote_null ())" k
+           | _ -> failwith "Unexpected in dump_ecl")
+      | F_Push     -> Printf.sprintf "  set(code,%d,Push ())" k
+      | F_Car      -> Printf.sprintf "  set(code,%d,Car ())" k
+      | F_Cdr      -> Printf.sprintf "  set(code,%d,Cdr ())" k
+      | F_Cons     -> Printf.sprintf "  set(code,%d,Cons ())" k
+      | F_Swap     -> Printf.sprintf "  set(code,%d,Swap ())" k
+      | F_App      -> Printf.sprintf "  set(code,%d,App ())" k
+      | F_Rplac    -> Printf.sprintf "  set(code,%d,Rplac ())" k
+      | F_Cur a    -> Printf.sprintf "  set(code,%d,Cur %d)" k a
+      | F_Branch(a,b) ->
+          Printf.sprintf "  set(code,%d,Branch(%d,%d))" k a b
       | F_Op op ->
-    let s = match op with
-      | Ast.Add     -> "Add"
-      | Ast.Sub     -> "Sub"
-      | Ast.Mult    -> "Mult"
-      | Ast.Div     -> "Div"
-      | Ast.Equal   -> "Equal"
-      | Ast.Less    -> "Less"
-      | Ast.Greater -> "Greater"
+          let s = match op with
+            | Ast.Add     -> "Add"
+            | Ast.Sub     -> "Sub"
+            | Ast.Mult    -> "Mul"
+            | Ast.Div     -> "Div"
+            | Ast.Equal   -> "Equal"
+            | Ast.Less    -> "Less"
+            | Ast.Greater -> "Greater"
+          in
+          Printf.sprintf "  set(code,%d,%s ())" k s
+      | F_Nop      -> Printf.sprintf "  set(code,%d,Nop ())" k
     in
-    Printf.sprintf "  set(code,%d, %s);;" k s
 
-      | F_Nop ->
-          Printf.sprintf "  set(code,%d,Nop ());;" k
-    in
-    output_string oc (line ^ "\n")
+    (* on choisit le suffixe : ";;" pour la dernière ligne, ";" sinon *)
+    let suffix = if k = n - 1 then ";;" else ";" in
+
+    (* on émet l’instruction complète + le bon suffixe + un retour à la ligne *)
+    Printf.fprintf oc "%s%s\n" base suffix
+
   ) flat;
-
+  
   close_out oc
 ;;
+
 
 
 
