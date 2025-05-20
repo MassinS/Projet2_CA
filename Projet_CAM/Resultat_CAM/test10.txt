@@ -1,0 +1,7 @@
+=== Test : test10.ml ===
+Code CAM généré :
+  Push
+  Quote true
+  Branch <branches>
+
+Résultat d'exécution : 100

@@ -1,5 +1,5 @@
-(executable
+(library
  (name cam_simplifie)
- (public_name cam_simplifie)
+ (public_name Projet_CAM.cam_simplifie)
  (modules cam_simplifie)
  (libraries transformation_ml_cam))  

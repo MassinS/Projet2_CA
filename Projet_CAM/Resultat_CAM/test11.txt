@@ -1,0 +1,5 @@
+=== Test : test11.ml ===
+Code CAM généré :
+  Quote true
+
+Résultat d'exécution : true

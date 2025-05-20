@@ -1,0 +1,18 @@
+=== Test : test17.ml ===
+Code CAM généré :
+  Push
+  Cur <function>
+  Cons
+  Push
+  Push
+  Cdr
+  Swap
+  Quote 2
+  Cons
+  App
+  Swap
+  Quote 77
+  Cons
+  App
+
+Résultat d'exécution : 79

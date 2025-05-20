@@ -1,9 +1,9 @@
-# C:\Users\DELL\AppData\Local\opam\default\bin\dune.exe exec cam_simplifie -- Test_CAM/Samples/test06.ml
+# C:\Users\DELL\AppData\Local\opam\default\bin\dune.exe exec test_runner_CAM_plat
 # OCAMLPARAM: unset
 # Shared cache: disabled
 # Shared cache location:
 # C:\Users\DELL\AppData\Local\Microsoft\Windows\INetCache\dune\db
-# Workspace root: "C:\\Users\\DELL\\Desktop\\CA\\Projet2-CA\\Projet_CAM"
+# Workspace root: "C:\\Users\\DELL\\Desktop\\CA\\Projet2-CA\\projet_CAM"
 # Auto-detected concurrency: 8
 # Dune context:
 #  { name = "default"
@@ -14,4 +14,4 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\DELL\AppData\Local\Temp\dune_c69c98_output
+$ C:\Users\DELL\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\DELL\AppData\Local\Temp\dune_117270_output

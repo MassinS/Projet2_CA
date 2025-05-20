@@ -5,7 +5,7 @@
 --
 -- with the following command:
 --
---    C:\Users\DELL\Desktop\CA\Projet2-CA\Projet_CAM\eclat\eclat-compiler\eclat.exe -arg=true;true;false code.ecl main.ecl
+--    C:\Users\DELL\Desktop\CA\Projet2-CA\projet_CAM\eclat\eclat-compiler\eclat.exe -arg=true;true;false code.ecl main.ecl
 
 
 library ieee;
@@ -61,19 +61,19 @@ end component;
       end process;
 
   process
-  variable \$v771\ : value(0 to 0) := (others => '0');
+  variable \$v708\ : value(0 to 0) := (others => '0');
 begin
 
       -- Start computation
     wait for 5 ns;
-      \$v771\ := eclat_true;
-      tb_argument <= \$v771\;
+      \$v708\ := eclat_true;
+      tb_argument <= \$v708\;
 wait for 10 ns;
-      \$v771\ := eclat_true;
-      tb_argument <= \$v771\;
+      \$v708\ := eclat_true;
+      tb_argument <= \$v708\;
 wait for 10 ns;
-      \$v771\ := eclat_false;
-      tb_argument <= \$v771\;
+      \$v708\ := eclat_false;
+      tb_argument <= \$v708\;
 wait for 10 ns;
 
     wait;

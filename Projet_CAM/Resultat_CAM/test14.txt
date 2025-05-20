@@ -1,0 +1,10 @@
+=== Test : test14.ml ===
+Code CAM généré :
+  Push
+  Cur <function>
+  Swap
+  Quote 0
+  Cons
+  App
+
+Résultat d'exécution : 42

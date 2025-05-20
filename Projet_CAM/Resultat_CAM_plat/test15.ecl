@@ -1,0 +1,42 @@
+let code = create<38>() ;;
+
+let load_code () =
+
+  set(code,0,Push ());
+  set(code,1,Cur 18);
+  set(code,2,Cons ());
+  set(code,3,Push ());
+  set(code,4,Cur 32);
+  set(code,5,Cons ());
+  set(code,6,Push ());
+  set(code,7,Car ());
+  set(code,8,Cdr ());
+  set(code,9,Swap ());
+  set(code,10,Push ());
+  set(code,11,Cdr ());
+  set(code,12,Swap ());
+  set(code,13,Quote_int 3);
+  set(code,14,Cons ());
+  set(code,15,App ());
+  set(code,16,Cons ());
+  set(code,17,App ());
+  set(code,18,Cur 19);
+  set(code,19,Push ());
+  set(code,20,Car ());
+  set(code,21,Cdr ());
+  set(code,22,Swap ());
+  set(code,23,Push ());
+  set(code,24,Car ());
+  set(code,25,Cdr ());
+  set(code,26,Swap ());
+  set(code,27,Cdr ());
+  set(code,28,Cons ());
+  set(code,29,App ());
+  set(code,30,Cons ());
+  set(code,31,App ());
+  set(code,32,Push ());
+  set(code,33,Cdr ());
+  set(code,34,Swap ());
+  set(code,35,Quote_int 1);
+  set(code,36,Cons ());
+  set(code,37,Add ());;

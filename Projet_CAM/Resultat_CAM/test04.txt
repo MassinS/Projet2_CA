@@ -1,0 +1,28 @@
+=== Test : test04.ml ===
+Code CAM généré :
+  Push
+  Quote 2
+  Cons
+  Push
+  Cdr
+  Swap
+  Push
+  Push
+  Quote 2
+  Swap
+  Quote 2
+  Cons
+  Div
+  Swap
+  Push
+  Quote 1
+  Swap
+  Quote 4
+  Cons
+  Minus
+  Cons
+  Mult
+  Cons
+  Plus
+
+Résultat d'exécution : -1

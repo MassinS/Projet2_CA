@@ -1,0 +1,7 @@
+(executable
+ (name test_runner_CAM_plat)
+ (public_name test_runner_CAM_plat)
+ (modules test_runner_CAM_plat)
+ (libraries transformation_ml_cam cam_simplifie)
+ (flags (:standard -w -37))
+ )

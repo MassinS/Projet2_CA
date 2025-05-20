@@ -1,0 +1,13 @@
+=== Test : test19.ml ===
+Code CAM généré :
+  Push
+  Cur <function>
+  Cons
+  Push
+  Cdr
+  Swap
+  Quote 123
+  Cons
+  App
+
+Résultat d'exécution : 99

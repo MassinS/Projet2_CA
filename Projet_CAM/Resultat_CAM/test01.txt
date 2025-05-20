@@ -1,0 +1,10 @@
+=== Test : test01.ml ===
+Code CAM généré :
+  Push
+  Quote 5
+  Swap
+  Quote 2
+  Cons
+  Plus
+
+Résultat d'exécution : 7

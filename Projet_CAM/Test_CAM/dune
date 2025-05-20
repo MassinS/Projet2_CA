@@ -1,7 +1,7 @@
 (executable
- (name test_runner)
- (public_name test_runner)
- (modules test_runner)
+ (name test_runner_CAM)
+ (public_name test_runner_CAM)
+ (modules test_runner_CAM)
  (libraries transformation_ml_cam vm_cam)
  (flags (:standard -w -37))
  )

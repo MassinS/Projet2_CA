@@ -7,6 +7,13 @@
    Projet_CAM.a
    Projet_CAM.cma
    Projet_CAM.cmxa
+   cam-simplifie/cam_simplifie.a
+   cam-simplifie/cam_simplifie.cma
+   cam-simplifie/cam_simplifie.cmi
+   cam-simplifie/cam_simplifie.cmt
+   cam-simplifie/cam_simplifie.cmx
+   cam-simplifie/cam_simplifie.cmxa
+   cam-simplifie/cam_simplifie.ml
    dune-package
    opam
    projet_CAM.cmi
@@ -51,9 +58,10 @@
    vm_cam/vm_cam__Vm.cmx))
  (libexec
   (Projet_CAM.cmxs
+   cam-simplifie/cam_simplifie.cmxs
    transformation-ml-cam/transformation_ml_cam.cmxs
    vm_cam/vm_cam.cmxs))
- (bin (cam_simplifie.exe mini-ml-compiler.exe test_runner.exe)))
+ (bin (mini-ml-compiler.exe test_runner.exe test_runner_CAM_plat.exe)))
 (library
  (name Projet_CAM)
  (kind normal)
@@ -72,6 +80,24 @@
      (source (path Projet_CAM) (impl (path projet_CAM.ml-gen))))
     (name Projet_CAM))
    (wrapped true))))
+(library
+ (name Projet_CAM.cam-simplifie)
+ (kind normal)
+ (archives
+  (byte cam-simplifie/cam_simplifie.cma)
+  (native cam-simplifie/cam_simplifie.cmxa))
+ (plugins
+  (byte cam-simplifie/cam_simplifie.cma)
+  (native cam-simplifie/cam_simplifie.cmxs))
+ (native_archives cam-simplifie/cam_simplifie.a)
+ (requires Projet_CAM.transformation-ml-cam)
+ (main_module_name Cam_simplifie)
+ (modes byte native)
+ (modules
+  (singleton
+   (obj_name cam_simplifie)
+   (visibility public)
+   (source (path Cam_simplifie) (impl (path cam-simplifie/cam_simplifie.ml))))))
 (library
  (name Projet_CAM.transformation-ml-cam)
  (kind normal)
